@@ -49,7 +49,7 @@ public class StockPriceProducer {
         while (!done) {
             for (Map.Entry<String, Float> entry : stockPrices.entrySet()) {
                 producer.send(new ProducerRecord<String, String>("stock_prices", entry.getKey(), entry.getKey() + "\t" + Float.toString(entry.getValue())));
-                entry.setValue(entry.getValue() * (0.5F + (float) Math.random() * 100 / 100));
+                entry.setValue(entry.getValue() + (entry.getValue() * (-0.5F + ((float) Math.random()))) / 1000);
             }
             System.out.println("Updated Prices @" + new Date());
             producer.flush();
